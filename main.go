@@ -1,5 +1,7 @@
 package main
 
+//Todo: implement SSL/https
+
 import (
   "github.com/gorilla/handlers"
   "github.com/gorilla/mux"
