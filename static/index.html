@@ -116,17 +116,21 @@
     });
 
     function manageFieldById(id) {
-        $.get('/badger/'+id, function(value) {
-           if (value) {
-               $('#'+id).removeClass('is-invalid');
-               $('#'+id).addClass('is-valid');
-               $('#'+id).val(value)
-           } else {
-               $('#'+id).removeClass('is-valid');
-               $('#'+id).addClass('is-invalid');
-               $('#'+id).val('')
-           }
-        })
+        //Todo: find a better way to do this than a timeout... :/
+        //   timeout is being used to make sure this runs after the post
+        setTimeout(function () {
+            $.get('/badger/' + id, function (value) {
+                if (value) {
+                    $('#' + id).removeClass('is-invalid');
+                    $('#' + id).addClass('is-valid');
+                    $('#' + id).val(value)
+                } else {
+                    $('#' + id).removeClass('is-valid');
+                    $('#' + id).addClass('is-invalid');
+                    $('#' + id).val('')
+                }
+            })
+        }, 500)
     }
 </script>
 
