@@ -36,7 +36,7 @@ func main() {
   }).Methods("GET")
   rtr.HandleFunc("/secret/{*}", func(w http.ResponseWriter, r *http.Request) {
     proxyBadger.ServeHTTP(w, r)
-  }).Methods("PUT")
+  }).Methods("PUT", "POST")
   rtr.PathPrefix("/").Handler(http.FileServer(http.Dir("./static/")))
   loggedRouter := handlers.LoggingHandler(os.Stdout, rtr)
 
