@@ -14,7 +14,8 @@ import (
 
 func main() {
   proxyBadger := &httputil.ReverseProxy{Director: func(req *http.Request) {
-    originHost := "192.168.1.127:8443"
+    //Todo: allow override via environment variables
+    originHost := "config:8443"
     //Todo: change how badger handles secerts, remove this.
     if strings.Split(req.URL.Path, "/")[1] == "secret" {
       req.URL.Path = "/badger/" + strings.Split(req.URL.Path,"/")[2]
