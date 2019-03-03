@@ -28,7 +28,7 @@ func main() {
   rtr := mux.NewRouter()
   rtr.HandleFunc("/badger/{*}", func(w http.ResponseWriter, r *http.Request) {
     proxyBadger.ServeHTTP(w, r)
-  }).Methods("GET","PUT")
+  }).Methods("GET","PUT","POST")
   rtr.HandleFunc("/streamr/{*}", func(w http.ResponseWriter, r *http.Request) {
     proxyBadger.ServeHTTP(w, r)
   }).Methods("GET")
