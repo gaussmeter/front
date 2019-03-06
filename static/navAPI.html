@@ -1,7 +1,18 @@
 <div class="modal-body" id="modalBody">
     <form>
         <div class="form-group">
-            <label for="tToken">User Name</label>
+            <label for="email">Email</label>
+            <input type="txt" class="form-control" id="email" placeholder="user@domain.com" value="" >
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="pass" placeholder="" value="" >
+        </div>
+    </form>
+    <div>
+        <button type="button" class="btn btn-primary" id="getToken"> Get Token </button>
+    </div>
+    <form>
+        <div class="form-group">
+            <label for="tToken">Token</label>
             <input type="txt" class="form-control" id="tToken" placeholder="{}" value="" >
         </div>
         <div class="form-group">
@@ -24,6 +35,30 @@
     $( document ).ready(function(){
         manageFieldById('tToken');
         setSelection('tVehicle')
+    });
+    $('#getToken').click(function () {
+        var email = $('#email').val();
+        var pass = $('#pass').val();
+        if (email.trim() !== "" && pass.trim() !== "") {
+            $.ajax({
+                type: "POST",
+                url: "/tToken",
+                contentType: "application/json",
+                data: '{"email":"' + email + '","password":"' + pass + '"}',
+                error: function (value) {
+                    alert("error " + JSON.stringify(value));
+                },
+                success: function (value) {
+                    $('#tToken').val(JSON.stringify(value));
+                    $('#pass').val('');
+                },
+                /*statusCode: {
+                    401: function (value) {
+                        alert('401 ' + JSON.stringify(value));
+                    }
+                }*/
+            });
+        }
     });
     $('#saveAPI').click(function() {
         var tToken = $('#tToken').val();
