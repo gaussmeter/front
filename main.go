@@ -13,7 +13,6 @@ import (
   "net/http"
   "net/http/httputil"
   "os"
-  "strings"
 )
 
 type token_auth struct {
@@ -25,11 +24,6 @@ func main() {
   proxyBadger := &httputil.ReverseProxy{Director: func(req *http.Request) {
     //Todo: allow override via environment variables
     originHost := "config:8443"
-    //Todo: change how badger handles secerts, remove this.
-    if strings.Split(req.URL.Path, "/")[1] == "secret" {
-      req.URL.Path = "/badger/" + strings.Split(req.URL.Path,"/")[2]
-
-    }
     req.Header.Add("X-Forwarded-Host", req.Host)
     req.Header.Add("X-Origin-Host", originHost)
     req.Host = originHost
@@ -47,6 +41,7 @@ func main() {
   rtr.HandleFunc("/secret/{*}", func(w http.ResponseWriter, r *http.Request) {
     proxyBadger.ServeHTTP(w, r)
   }).Methods("PUT", "POST")
+  // Todo secret get -> return 401 if exists.
   rtr.HandleFunc("/tToken", func(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "application/json")
     body, err := ioutil.ReadAll(r.Body)
