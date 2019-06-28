@@ -41,7 +41,16 @@ func main() {
   rtr.HandleFunc("/secret/{*}", func(w http.ResponseWriter, r *http.Request) {
     proxyBadger.ServeHTTP(w, r)
   }).Methods("PUT", "POST")
-  // Todo secret get -> return 401 if exists.
+  rtr.HandleFunc("/secret/{key}", func(w http.ResponseWriter, r *http.Request) {
+    key := mux.Vars(r)["key"]
+    //Todo: allow override via environment variables
+    secret, err := http.Get("http://config:8443/secret/"+key)
+    if err == nil && secret.StatusCode == 200 {
+      w.WriteHeader(http.StatusUnauthorized)
+    } else {
+      w.WriteHeader(http.StatusNotFound)
+    }
+  }).Methods("GET")
   rtr.HandleFunc("/tToken", func(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "application/json")
     body, err := ioutil.ReadAll(r.Body)
