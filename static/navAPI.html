@@ -61,9 +61,9 @@
     });
     $('#saveAPI').click(function() {
         var tToken = $('#tToken').val();
-        if (tToken.trim() !== "" ) {
+        if (tToken.trim() !== "" && tToken.trim() !== "...hidden..." ) {
             $.post("/secret/tToken", tToken, function() {
-                manageFieldById('tToken');
+                manageSecretById('tToken');
             });
         }
     });
