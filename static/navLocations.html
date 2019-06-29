@@ -21,7 +21,6 @@
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
     <button type="button" class="btn btn-info" id="saveLocations" > Save </button>
-    <button type="button" class="btn btn-primary" id="start"> Start Query </button>
 </div>
 
 <!--
@@ -54,8 +53,5 @@
         if (tWorkRadisuFt.trim() !== "" ) {
             $.post("/badger/tWorkRadiusFt", tWorkRadisuFt, manageFieldById('tWorkRadiusFt'))
         }
-    });
-    $('#start').click(function() {
-        $.post("/start/query")
     });
 </script>

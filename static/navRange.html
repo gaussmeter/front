@@ -17,7 +17,6 @@
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
     <button type="button" class="btn btn-info" id="saveRange" > Save </button>
-    <button type="button" class="btn btn-primary" id="start"> Start Query </button>
 </div>
 <script>
     $( document ).ready(function(){
@@ -38,9 +37,6 @@
         if (tChargeRangeLow.trim() !== "" ) {
             $.post("/badger/tChargeRangeLow", tChargeRangeLow, manageFieldById('tChargRangeLow'))
         }
-    });
-    $('#start').click(function() {
-        $.post("/start/query")
     });
 </script>
 <!--

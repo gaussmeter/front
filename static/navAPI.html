@@ -28,7 +28,6 @@
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
     <button type="button" class="btn btn-info" id="saveAPI" > Save </button>
-    <button type="button" class="btn btn-primary" id="start"> Start Query </button>
 </div>
 
 <script>
@@ -67,9 +66,6 @@
                 manageFieldById('tToken');
             });
         }
-    });
-    $('#start').click(function() {
-        $.post("/start/query")
     });
     function setSelection(div) {
         $.get('/badger/'+div, function(value) {
