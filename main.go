@@ -46,7 +46,8 @@ func main() {
     //Todo: allow override via environment variables
     secret, err := http.Get("http://config:8443/secret/"+key)
     if err == nil && secret.StatusCode == 200 {
-      w.WriteHeader(http.StatusUnauthorized)
+      w.WriteHeader(http.StatusOK)
+      fmt.Fprintf(w,"...hidden...")
     } else {
       w.WriteHeader(http.StatusNotFound)
     }

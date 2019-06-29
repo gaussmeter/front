@@ -32,7 +32,7 @@
 
 <script>
     $( document ).ready(function(){
-        manageFieldById('tToken');
+        manageSecretById('tToken');
         setSelection('tVehicle')
     });
     $('#getToken').click(function () {
@@ -62,7 +62,7 @@
     $('#saveAPI').click(function() {
         var tToken = $('#tToken').val();
         if (tToken.trim() !== "" ) {
-            $.post("/badger/tToken", tToken, function() {
+            $.post("/secret/tToken", tToken, function() {
                 manageFieldById('tToken');
             });
         }
