@@ -23,7 +23,7 @@ func putValue(key string, value string) {
   if err != nil {
     fmt.Printf("%s \n",err)
   } else {
-    fmt.Printf("put key: %s value: %s", key, value)
+    fmt.Printf("put key: %s value: %s \n", key, value)
   }
 
 }
