@@ -3,6 +3,7 @@ package main
 //Todo: implement SSL/https
 
 import (
+  "bytes"
   "fmt"
   "github.com/gorilla/handlers"
   "github.com/gorilla/mux"
@@ -17,7 +18,41 @@ type token_auth struct {
   Password string `json:"password"`
 }
 
+func putValue(key string, value string) {
+  _, err := http.Post("http://config:8443/badger/"+key, "text", bytes.NewBufferString(value))
+  if err != nil {
+    fmt.Printf("%s \n",err)
+  } else {
+    fmt.Printf("put key: %s value: %s", key, value)
+  }
+
+}
+
+func putDefaults()  {
+     putValue("default:tHome","37.4919392,-121.9469367")
+     putValue("default:tHomeRadiusFt","100")
+     putValue("default:tWork","37.4919392,-121.9469367")
+     putValue("default:tWorkRadiusFt","100")
+     putValue("default:tChargeRangeFull", "270")
+     putValue("default:tChargeRangeMedium","100")
+     putValue("default:tChargeRangeLow","30")
+     putValue("default:eIHIP","fill")
+     putValue("default:eIHNP","fill")
+     putValue("default:eIHNPBCRM","fill")
+     putValue("default:eNH","rainbow")
+     putValue("default:cIHIP","0,0,0,255")
+     putValue("default:cIHNP","0,0,0,255")
+     putValue("defautl:cIHNPBCRM","0,0,0,255")
+     putValue("default:jcNH","0,0,0,255")
+     putValue("default:tGetStateInterval","14400")
+     putValue("default:tSoftStateInterval","600")
+     putValue("default:tGetStateIntervalDriving","30")
+     putValue("default:tGetStateIntervalCharging","60")
+     putValue("default:tVehicle","0")
+}
+
 func main() {
+  putDefaults()
   proxyBadger := &httputil.ReverseProxy{Director: func(req *http.Request) {
     //Todo: allow override via environment variables
     originHost := "config:8443"
