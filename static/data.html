@@ -12,13 +12,13 @@
         var speed = 0;
         var distance = 0;
         var temperature = 0;
-        $.getJSON("/streamr/ts_", function (stream) {
+        $.getJSON("/streamr/tsg_", function (stream) {
             total = stream['kv'].length;
             $.each(stream['kv'], function (i, item) {
                 state = $.parseJSON(atob(item['value']));
                 if (state['data_state']['isGood'] == true) {
                     datetime = new Date(0);
-                    datetime.setUTCSeconds(atob(item['key']).replace('ts_',''));
+                    datetime.setUTCSeconds(atob(item['key']).replace('tsg_',''));
                     if (state['drive_state']['speed']) {
                         speed = state['drive_state']['speed'];
                     } else {
